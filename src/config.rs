@@ -8,7 +8,7 @@ pub mod config {
         #[serde(rename = "DB")]
         pub database: Database,
     }
-#[derive(Deserialize, Debug)]
+    #[derive(Deserialize, Debug)]
     pub struct Database {
         #[serde(rename = "DATABASE_URL")]
         pub uri: String,

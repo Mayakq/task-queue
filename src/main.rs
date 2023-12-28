@@ -1,6 +1,6 @@
+mod app;
 mod config;
 mod data;
-mod app;
 use config::config::Config;
 use tracing::Level;
 

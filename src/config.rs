@@ -1,4 +1,6 @@
 pub mod config {
+    use core::panic;
+
     use serde::Deserialize;
     use tracing::{error, info};
     #[derive(Deserialize, Debug)]
@@ -15,15 +17,12 @@ pub mod config {
     }
     impl Config {
         /// Creates a new [`Config`].
-        pub fn new(database: Database) -> Self {
-            match init_config() {
-                Ok(config) => config,
-                Err(_) => todo!(),
-            }
+        pub fn new() -> Self {
+            init_config()
         }
     }
 
-    pub fn init_config() -> Result<Config, String> {
+    pub fn init_config() -> Config {
         let toml = read_toml();
         return match toml {
             Ok(str) => {
@@ -31,18 +30,18 @@ pub mod config {
                 match config {
                     Ok(config) => {
                         info!("init - init_config | Parse Toml config - {:#?}", config);
-                        Ok(config)
+                        config
                     }
                     Err(err) => {
                         error!("init - init_config | {}", err);
-                        return Err(err.to_string());
+                        panic!("{}", format!("init - init_config | {}", err));
                     }
                 }
             }
             Err(error) => {
                 let error = error.to_string();
                 tracing::error!(error);
-                Err(error)
+                panic!("{}", format!("init - init_config | {}", error));
             }
         };
     }

@@ -6,5 +6,5 @@ services:
       - ./.env
     container_name: server
     ports: 
-      - '6500:6500'
+      - '6500:5432'
 

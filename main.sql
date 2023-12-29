@@ -1,9 +1,16 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+create table if not exists worker
+(
+    id   uuid UNIQUE DEFAULT uuid_generate_v4(),
+    name  TEXT NOT NULL
+);
 CREATE TABLE IF NOT EXISTS tasks
 (
     task   uuid NOT NULL DEFAULT uuid_generate_v4() unique,
-    text   TEXT not null UNIQUE ,
-    worker uuid NOT NULL
+    text   TEXT not null UNIQUE,
+    worker uuid NOT NULL,
+    foreign key (worker) references worker(id)
+
 );
 create table if not exists manager
 (
@@ -11,13 +18,6 @@ create table if not exists manager
     password TEXT not null,
     name     TEXT
 );
-create table if not exists worker
-(
-    id   uuid DEFAULT uuid_generate_v4(),
-    task uuid NOT NULL default uuid_generate_v4(),
-    name TEXT,
-    foreign key (task) references tasks (task)
-);
 
-insert into tasks (text, worker)
-values ('god', (select id from manager where name = '123'))
+
+

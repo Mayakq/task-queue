@@ -1,6 +1,8 @@
 mod app;
 mod config;
 mod data;
+mod error_response;
+
 use config::config::Config;
 use tracing::Level;
 

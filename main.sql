@@ -1,7 +1,6 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TABLE IF NOT EXISTS tasks
 (
-    id     uuid          DEFAULT uuid_generate_v4() primary key unique,
     task   uuid NOT NULL DEFAULT uuid_generate_v4() unique,
     text   TEXT not null UNIQUE ,
     worker uuid NOT NULL
